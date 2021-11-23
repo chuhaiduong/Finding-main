@@ -1,0 +1,65 @@
+<div class="gallery">
+	<div class="container">
+		<div class="grid">
+			<div class="gallery_filter">
+				<div class="filter_item">
+					<p class="filter_title">Chủng Loại</p>
+					<ul class="filter_list" *ngFor="let type of category.types">
+						<label>
+							<input type="checkbox" value="{{ type }}" data-filter="type" (click)="filterPets($event)">
+							<span>{{ type }}</span>
+						</label>
+					</ul>
+				</div>
+
+				<div class="filter_item">
+					<p class="filter_title">Sắp xếp</p>
+					<select name="" id="" style="width: 100%; padding: 10px">
+						<option value="">Ngày mất gần nhất</option>
+						<option value="">Ngày thêm gần nhất</option>
+					</select>
+				</div>
+
+				<div class="filter_item">
+					<p class="filter_title">Màu Sắc</p>
+					<ul *ngFor="let color of category.colors">
+						<label>
+							<input type="checkbox" value="{{ color }}" (click)="filterPets($event)">
+							<span style="margin-left: 10px;">{{ color }}</span>
+						</label>
+					</ul>
+				</div>
+
+				<div class="filter_item">
+					<p class="filter_title">Giới Tính</p>
+					<ul>
+						<li>Đực</li>
+						<li>Cái</li>
+					</ul>
+				</div>
+			</div>
+
+			
+
+			<div class="gallery_container">
+				<p style="text-align: center;" *ngIf="!this.totalLength">Không có tin nào để hiện tại</p>
+				<div class="gallery_images" *ngFor="let item of filterData | paginate: { itemsPerPage: 1, currentPage: page, totalItems: totalLength }">
+					<div class="gallery_item">
+						<a href="../pet/1">
+							<img src={{item.image}} alt="">
+						</a>
+						<div class="gallery_item-detail">
+							<p style="font-weight: bold;">Missing since {{item.date}}</p>
+							<p>{{item.describe}}</p>
+						</div>
+					</div>
+				</div>
+				<div style="margin-top: 16px;">
+					<pagination-controls (pageChange)="page = $event" *ngIf="this.totalLength"></pagination-controls>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
